@@ -10,6 +10,7 @@ django-heroku = "*"
 gunicorn = "*"
 django-cors-headers = "*"
 python-decouple = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from snackapp.views import FirstView, SecondView, ThirdView, TodoViewSet, ProductsViewSet
+from snackapp.views import FirstView, SecondView, ThirdView, TodoViewSet, ProductsViewSet, LoginView 
 from rest_framework import routers
-
+from rest_framework_simplejwt import views as jwt_views
 
 # create a new router
 router = routers.DefaultRouter()
@@ -25,10 +25,16 @@ router = routers.DefaultRouter()
 router.register(r'todos', TodoViewSet) #register "/todos" routes
 router.register(r'products', ProductsViewSet)
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path("first/", FirstView.as_view()),
     path("second/<param>/", SecondView.as_view()),
     path("third/", ThirdView.as_view()),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(),
+         name='token_refresh'),
+    path('user/login/', LoginView.as_view(), name="auth-login")
 ]
