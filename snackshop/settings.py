@@ -170,12 +170,19 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),os.path.join(BASE_DIR, 'client/build/static'),)
+# STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),os.path.join(BASE_DIR, 'client/build/static'),)
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles/')
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT,'static/',os.path.join(BASE_DIR, 'client/build/static'),),
+)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
