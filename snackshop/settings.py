@@ -63,7 +63,8 @@ ROOT_URLCONF = 'snackshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "client/build")],
+        # 'DIRS': [os.path.join(BASE_DIR, "client/build")],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -176,13 +177,6 @@ SIMPLE_JWT = {
 
 # STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),os.path.join(BASE_DIR, 'client/build/static'),)
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-
-STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles/')
-
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT,'static/'),os.path.join(BASE_DIR, 'client/build/static'),)
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())

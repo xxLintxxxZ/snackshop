@@ -28,7 +28,7 @@ router.register(r'products', ProductsViewSet)
 
 
 urlpatterns = [
-    path('django/', include(router.urls)),
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path("first/", FirstView.as_view()),
     path("second/<param>/", SecondView.as_view()),
@@ -39,6 +39,6 @@ urlpatterns = [
          name='token_refresh'),
     path('user/login/', LoginView.as_view(), name="auth-login"),
     path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
-    re_path('(^(?!(api|admin)).*$)',
-            TemplateView.as_view(template_name='index.html'))
+    # re_path('(^(?!(api|admin)).*$)',
+    #         TemplateView.as_view(template_name='index.html'))
 ]

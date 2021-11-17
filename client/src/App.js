@@ -26,7 +26,7 @@ function App(props) {
     });
 
     const data = await response.json();
-    //console.log(data)
+    console.log(data)
     setToken(data.access);
   };
 
@@ -52,7 +52,7 @@ useEffect(() => {
       subject: "Test", details: "New todo"
     });
 
-    await fetch("http://localhost:8000/todos/", {
+    await fetch("http://localhost:8000/api/todos/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
