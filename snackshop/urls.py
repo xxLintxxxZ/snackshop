@@ -18,7 +18,8 @@ from django.urls import path, include
 from snackapp.views import FirstView, SecondView, ThirdView, TodoViewSet, ProductsViewSet, LoginView 
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
-
+from django.urls import path, re_path, include
+from django.views.generic import TemplateView
 # create a new router
 router = routers.DefaultRouter()
 # register our viewsets
@@ -36,5 +37,7 @@ urlpatterns = [
          name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
-    path('user/login/', LoginView.as_view(), name="auth-login")
+    path('user/login/', LoginView.as_view(), name="auth-login"),
+    re_path('(^(?!(api|admin)).*$)',
+            TemplateView.as_view(template_name='index.html'))
 ]
