@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from snackapp.views import FirstView, SecondView, ThirdView, TodoViewSet, ProductsViewSet, LoginView 
+from snackapp.views import FirstView, SecondView, ThirdView, TodoViewSet, ProductsViewSet, LoginView, RegisterUsersView
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 from django.urls import path, re_path, include
@@ -28,7 +28,7 @@ router.register(r'products', ProductsViewSet)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('django/', include(router.urls)),
     path('admin/', admin.site.urls),
     path("first/", FirstView.as_view()),
     path("second/<param>/", SecondView.as_view()),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
     path('user/login/', LoginView.as_view(), name="auth-login"),
+    path('user/signup/', RegisterUsersView.as_view(), name="user-signup"),
     re_path('(^(?!(api|admin)).*$)',
             TemplateView.as_view(template_name='index.html'))
 ]
