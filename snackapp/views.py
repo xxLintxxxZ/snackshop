@@ -18,12 +18,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+   
 
 class RegisterUsersView(generics.ListCreateAPIView):
     """
     POST user/signup/
     """
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -51,7 +52,7 @@ class LoginView(generics.ListCreateAPIView):
     # This permission class will overide the global permission class setting
     # Permission checks are always run at the very start of the view, before any other code is allowed to proceed.
     # The permission class here is set to AllowAny, which overwrites the global class to allow anyone to have access to login.
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -80,7 +81,7 @@ class TodoViewSet(viewsets.ModelViewSet):
     # The serializer class for serializing output
     serializer_class = TodoSerializer
     # optional permission class set permission level
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly] #Coule be [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated] #Coule be [permissions.IsAuthenticated]
 
 #Products
 class ProductsViewSet(viewsets.ModelViewSet):
