@@ -56,7 +56,6 @@ class LoginView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-
     def post(self, request, *args, **kwargs):
         username = request.data.get("username", "")
         password = request.data.get("password", "")
@@ -81,7 +80,7 @@ class TodoViewSet(viewsets.ModelViewSet):
     # The serializer class for serializing output
     serializer_class = TodoSerializer
     # optional permission class set permission level
-    permission_classes = [permissions.IsAuthenticated] #Coule be [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly] #Coule be [permissions.IsAuthenticated]
 
 #Products
 class ProductsViewSet(viewsets.ModelViewSet):
@@ -90,8 +89,8 @@ class ProductsViewSet(viewsets.ModelViewSet):
     # The serializer class for serializing output
     serializer_class = ProductsSerializer
     # optional permission class set permission level
+    # permission_classes = [permissions.AllowAny]
     permission_classes = [permissions.AllowAny]
-
 
 class FirstView(View):
     #since the methods name is "get" it will run on "get" requests
