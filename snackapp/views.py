@@ -24,7 +24,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
     """
     POST user/signup/
     """
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
