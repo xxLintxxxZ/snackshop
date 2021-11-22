@@ -8,7 +8,9 @@ class Products(models.Model):
     # define a age that is an integer
     quantity = models.IntegerField()
     price = models.IntegerField()
-
+    money = models.DecimalField(max_digits= 9, decimal_places=2, null =True)
+    image = models.CharField(max_length = 500, null=True, blank=True)
+    country = models.CharField(max_length=100, null= True, blank= True)
 
 class Todo(models.Model):
     subject = models.CharField(max_length=100)
