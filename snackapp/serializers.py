@@ -39,4 +39,4 @@ class ProductsSerializer(serializers.HyperlinkedModelSerializer):
         # The model it will serialize
         model = Products
         # the fields that should be included in the serialized output
-        fields = ['id', 'prodname', 'quantity', 'price', 'image', 'country', 'money']
+        fields = ['id', 'prodname', 'quantity', 'price', 'image', 'country']
