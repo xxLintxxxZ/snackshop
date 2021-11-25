@@ -11,7 +11,11 @@ from django.contrib.auth import authenticate, login
 from .serializers import UserSerializer, TokenSerializer, MyTokenObtainPairSerializer
 from .serializers import TodoSerializer, ProductsSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+# new
+from decouple import config
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+import jwt
 # JWT settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -130,3 +134,39 @@ class SecondView(View):
 class ThirdView(View):
     def post(self, request):
         return JsonResponse(GetBody(request))
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def get_tokens_for_user(request):
+
+    username = request.POST.get("username")
+    password = request.POST.get("password")
+    
+    user = authenticate(username=username, password=password);
+
+    if user is not None:
+
+        refreshToken = RefreshToken.for_user(user)
+        accessToken = refreshToken.access_token
+
+        decodeJTW = jwt.decode(str(accessToken), config('SECRET_KEY'), algorithms=["HS256"]);
+
+        # add payload here!!
+        decodeJTW['iat'] = '1590917498'
+        decodeJTW['user'] = username
+        decodeJTW['date'] = '2020-05-31'
+
+        #encode
+        encoded = jwt.encode(decodeJTW, config('SECRET_KEY'), algorithm="HS256")
+    
+        return Response({
+            'status': True,
+            'refresh': str(refreshToken),
+            'access': str(encoded),
+        })
+
+    else:
+        return Response({
+            'status': False
+        })

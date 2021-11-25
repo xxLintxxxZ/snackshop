@@ -2,7 +2,7 @@ from .models import Todo, Products
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # serializers.py
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -11,11 +11,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # Add custom claims
-        token['username'] = user.username
+        # token['username'] = user.username
         token['email'] = user.email
-
+        # token['iat'] = datetime.datetime.now()
+        token['name'] = user.username
+        # token['date'] = str(datetime.date.today())
         return token
-        
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+    
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
